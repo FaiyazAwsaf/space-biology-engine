@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "space-biology-engine-frontend",
   "buildCommand": "npm run build",
   "outputDirectory": "build",
   "installCommand": "npm install",
