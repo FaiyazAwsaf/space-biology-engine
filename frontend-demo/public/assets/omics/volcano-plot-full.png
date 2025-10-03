@@ -1,0 +1,7 @@
+# Full Volcano Plot Image
+
+This should be the full-resolution volcano plot image for the expanded modal view.
+Replace this file with your actual volcano plot image showing:
+- Complete Volcano Plot - OSD-467 (HLU vs Control, Cortical Bone)
+- Top Differentially Expressed Genes bar chart
+- Highlighted Gene Table with all gene names, fold changes, and p-values

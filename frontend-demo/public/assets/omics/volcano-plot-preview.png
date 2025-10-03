@@ -1,0 +1,12 @@
+# Volcano Plot Images
+
+To complete the integration, please save your volcano plot images as:
+- volcano-plot-preview.png (for the small preview in the panel)
+- volcano-plot-full.png (for the full expanded view)
+
+The images should show:
+- Volcano Plot - OSD-467 (HLU vs Control, Cortical Bone)
+- Top Differentially Expressed Genes
+- Highlighted Gene Table with fold changes and p-values
+
+Once you add these images, the Omics Lens will automatically display them for bone domain queries!
