@@ -1,0 +1,447 @@
+-DOCSTART- O
+
+Bone O
+density O
+reduction O
+for O
+a O
+Mars O
+microgravity O
+and O
+HU14,15 O
+, O
+observing O
+recovery O
+of O
+joint B-Key_Finding
+health I-Key_Finding
+upon I-Key_Finding
+mission I-Key_Finding
+has I-Key_Finding
+been I-Key_Finding
+estimated I-Key_Finding
+of I-Key_Finding
+up I-Key_Finding
+to I-Key_Finding
+36 I-Key_Finding
+% I-Key_Finding
+4 I-Key_Finding
+. O
+
+Recovery O
+from O
+bone O
+return O
+to O
+full O
+weight-bearing O
+with O
+exercise15. O
+Likewise O
+, O
+this O
+study O
+degradationappears O
+to O
+beincomplete5,6 O
+. O
+
+examinedifdeficitsincirculatingÎ±KlothoafterperiodsHUcouldbe O
+recoveredafterreturntofull-weightbearing O
+, O
+with O
+/ O
+withoutperformThe O
+role O
+of O
+the O
+kidneys O
+in O
+skeletal O
+homeostasis O
+is O
+complex O
+. O
+
+Comprehensive B-Tool_Library
+multi-omics I-Tool_Library
+analysis I-Tool_Library
+reveals I-Tool_Library
+mitochondrial I-Tool_Library
+
+-DOCSTART- O
+
+Machine O
+learning O
+( O
+ML O
+) O
+methods O
+are O
+particularly O
+effective O
+in O
+identifying O
+patterns O
+in O
+complex O
+biological O
+data O
+, O
+particularly O
+for O
+discovering O
+biomarkers O
+in O
+heterogeneous O
+, O
+high-dimensional O
+, O
+continuous O
+multi-omicsdatasets O
+. O
+
+We B-Methodology
+used I-Methodology
+multi-omics I-Methodology
+( I-Methodology
+transcriptomic I-Methodology
+, I-Methodology
+proteomic I-Methodology
+, I-Methodology
+and I-Methodology
+DNA I-Methodology
+methylation I-Methodology
+) I-Methodology
+data I-Methodology
+and I-Methodology
+calcium I-Methodology
+reuptake I-Methodology
+data I-Methodology
+collected I-Methodology
+from I-Methodology
+C57BL I-Methodology
+/ I-Methodology
+6J I-Methodology
+mouse I-Methodology
+soleus I-Methodology
+and I-Methodology
+tibialis I-Methodology
+anterior I-Methodology
+tissues I-Methodology
+. I-Methodology
+
+There B-Key_Finding
+was I-Key_Finding
+no I-Key_Finding
+mean-variance I-Key_Finding
+relationship I-Key_Finding
+and I-Key_Finding
+distribution I-Key_Finding
+were I-Key_Finding
+checked I-Key_Finding
+
+OSD-488 B-Key_Finding
+dataset I-Key_Finding
+only I-Key_Finding
+had I-Key_Finding
+TA I-Key_Finding
+calcium I-Key_Finding
+reuptake I-Key_Finding
+measurements I-Key_Finding
+
+We O
+imputed O
+missing O
+data O
+using B-Tool_Library
+K-nearest I-Tool_Library
+neighbor I-Tool_Library
+imputation I-Tool_Library
+, I-Tool_Library
+which I-Tool_Library
+did I-Tool_Library
+not I-Tool_Library
+significantlyaffectthedistribution I-Tool_Library
+
+the O
+limma B-Tool_Library
+v3. I-Tool_Library
+50. I-Tool_Library
+3R I-Tool_Library
+package I-Tool_Library
+, I-Tool_Library
+
+Box B-Methodology
+plots I-Methodology
+were I-Methodology
+generated I-Methodology
+using I-Methodology
+seaborn I-Methodology
+( I-Methodology
+v0. I-Methodology
+11. I-Methodology
+2 I-Methodology
+) I-Methodology
+in I-Methodology
+Python I-Methodology
+
+-DOCSTART- O
+
+RADIATION B-Key_Finding
+AND I-Key_Finding
+UNLOADING I-Key_Finding
+DEGRADES I-Key_Finding
+KNEEANDHIP I-Key_Finding
+JOINTS I-Key_Finding
+
+-DOCSTART- O
+
+males B-Dataset
+: I-Dataset
+âˆ'37. I-Dataset
+5 I-Dataset
+Â± I-Dataset
+3. I-Dataset
+1 I-Dataset
+% I-Dataset
+, I-Dataset
+females I-Dataset
+: I-Dataset
+âˆ'22. I-Dataset
+4 I-Dataset
+Â± I-Dataset
+6 I-Dataset
+. I-Dataset
+
+males B-Dataset
+: I-Dataset
+âˆ'53. I-Dataset
+3 I-Dataset
+Â± I-Dataset
+5. I-Dataset
+7 I-Dataset
+% I-Dataset
+, I-Dataset
+females I-Dataset
+: I-Dataset
+âˆ'22. I-Dataset
+4 I-Dataset
+Â± I-Dataset
+5 I-Dataset
+. I-Dataset
+
+effect B-Dataset
+of I-Dataset
+sex I-Dataset
+
+cyclodextrin B-Key_Finding
+/ I-Key_Finding
+cellulose I-Key_Finding
+nanocrystals I-Key_Finding
+improve O
+the O
+phenotype B-Key_Finding
+
+Fourteen B-Key_Finding
+days I-Key_Finding
+of I-Key_Finding
+bed I-Key_Finding
+rest I-Key_Finding
+induces O
+a O
+decline B-Key_Finding
+in I-Key_Finding
+satellite I-Key_Finding
+
+Control O
+of O
+skeletal O
+muscle B-Key_Finding
+atrophy I-Key_Finding
+exercise O
+countermeasures B-Key_Finding
+during O
+head- B-Key_Finding
+down I-Key_Finding
+bed I-Key_Finding
+rest I-Key_Finding
+. I-Key_Finding
+
+Ovariectomy B-Key_Finding
+prevents O
+the O
+recovery B-Key_Finding
+
+Ageing B-Key_Finding
+is O
+associated O
+with O
+diminished O
+muscle B-Key_Finding
+re- I-Key_Finding
+growth I-Key_Finding
+and I-Key_Finding
+myogenic I-Key_Finding
+precursor I-Key_Finding
+cell O
+
+Monocarboxylate B-Key_Finding
+transporter I-Key_Finding
+expression O
+
+risk B-Key_Finding
+of I-Key_Finding
+injury I-Key_Finding
+to O
+the O
+lumbopelvic B-Key_Finding
+area O
+
+-DOCSTART- O
+
+At0g B-Key_Finding
+, I-Key_Finding
+femaleslostmoredorsiflexionstrength I-Key_Finding
+, I-Key_Finding
+plantarflexionstrength I-Key_Finding
+
+at0. O
+4g B-Key_Finding
+, I-Key_Finding
+femaleslostmoredorsiflexionstrength I-Key_Finding
+, I-Key_Finding
+plantarflexionstrength I-Key_Finding
+
+Femaleshavegreatermusculoskeletalaberrations B-Key_Finding
+during I-Key_Finding
+exposure I-Key_Finding
+to I-Key_Finding
+both I-Key_Finding
+microgravity I-Key_Finding
+and I-Key_Finding
+partial-gravity I-Key_Finding
+environments I-Key_Finding
+
+female B-Key_Finding
+rats I-Key_Finding
+better I-Key_Finding
+maintained I-Key_Finding
+muscle I-Key_Finding
+function I-Key_Finding
+
+female B-Key_Finding
+mice I-Key_Finding
+had I-Key_Finding
+exacerbated I-Key_Finding
+muscle I-Key_Finding
+loss I-Key_Finding
+compared I-Key_Finding
+to I-Key_Finding
+males I-Key_Finding
+
+micerespondedmorefavorablytomitochondrially-targetedcatalaseasa B-Key_Finding
+
+Alterationstomuscle B-Key_Finding
+biological I-Key_Finding
+
+space B-Key_Finding
+radiation I-Key_Finding
+, O
+sleep B-Key_Finding
+
+baselinemeasurementsmayinteractwiththeoveralltra- B-Key_Finding
+I-Key_Finding
+
+sexondisuse-inducedmuscleloss B-Key_Finding
+
+itislikelythatfemalesareatincreasedriskforadversemuscle B-Key_Finding
+
+Wepostulatethe0ginterventionisamoreseverestimulus B-Key_Finding
+
+femaleshaveaccelerated B-Key_Finding
+
+milder B-Key_Finding
+stimulus I-Key_Finding
+
+resistance B-Key_Finding
+exercise I-Key_Finding
+
+additional B-Key_Finding
+interventions I-Key_Finding
+
+muscledisuseandestradiolalterationsmaybeparticularlyexacerbated B-Key_Finding
+
+-DOCSTART- O
+
+37-Day B-Methodology
+microgravity I-Methodology
+exposure I-Methodology
+in I-Methodology
+16-Week I-Methodology
+female I-Methodology
+C57BL O
+/ O
+6J O
+mice O
+is O
+associated B-Key_Finding
+with I-Key_Finding
+bone I-Key_Finding
+loss I-Key_Finding
+specific I-Key_Finding
+to I-Key_Finding
+weight-bearing I-Key_Finding
+skeletal O
+sites O
+
+-DOCSTART- O
+
+Spaceflight B-Methodology
+and I-Methodology
+hind I-Methodology
+limb I-Methodology
+unloading I-Methodology
+induces O
+an O
+arthritic B-Key_Finding
+phenotype I-Key_Finding
+
+Reduced B-Key_Finding
+knee I-Key_Finding
+weight-bearing I-Key_Finding
+from O
+prescription O
+cartilage B-Key_Finding
+degradation I-Key_Finding
+
+Cartilage B-Key_Finding
+and I-Key_Finding
+meniscal I-Key_Finding
+degradation I-Key_Finding
+
+microCT B-Methodology
+, I-Methodology
+histology I-Methodology
+
+Previous B-Key_Finding
+exposure I-Key_Finding
+to I-Key_Finding
+simulated I-Key_Finding
+microgravity I-Key_Finding
+does I-Key_Finding
+not I-Key_Finding
+exacerbate I-Key_Finding
+bone I-Key_Finding
+loss I-Key_Finding
+during I-Key_Finding
+subsequent I-Key_Finding
+exposure I-Key_Finding
+in I-Key_Finding
+the I-Key_Finding
+proximal I-Key_Finding
+tibia I-Key_Finding
+of I-Key_Finding
+adult I-Key_Finding
+rats. I-Key_Finding
+

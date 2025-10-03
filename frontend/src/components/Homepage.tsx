@@ -160,7 +160,11 @@ export function Homepage({
             <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
               <span className="text-white text-sm">🧬</span>
             </div>
-            <span className="text-emerald-200 tracking-wide">SBKE</span>
+            <span className="text-emerald-200 tracking-wide">
+              <a href="https://www.spaceappschallenge.org/2025/find-a-team/pulse-planet/?tab=members">
+                TEAM PULSE PLANET{" "}
+              </a>
+            </span>
           </div>
 
           <div className="flex items-center gap-8 text-sm">
@@ -181,7 +185,7 @@ export function Homepage({
       <section className="relative z-10 px-6 pt-16 pb-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl bg-gradient-to-r from-emerald-200 to-cyan-200 bg-clip-text text-transparent mb-4 tracking-tight">
-            Space Biology Knowledge Engine
+            Kepler Bio-Engine
           </h1>
           <p className="text-emerald-200/80 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
             Explore the convergence of life and cosmos through AI-powered
@@ -259,6 +263,37 @@ export function Homepage({
           </button>
         </section>
       </main>
+
+      {/* Copyright */}
+      <div className="border-t border-gray-700/30 pt-8  ">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-white text-sm">
+            © {new Date().getFullYear()}{" "}
+            <a
+              href="https://www.spaceappschallenge.org/2025/find-a-team/pulse-planet/?tab=members"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Team Pulse Planet
+            </a>
+            . All rights reserved.
+          </div>
+          <div className="flex items-center gap-6 text-xs text-white">
+            <span>Built for NASA Space Apps Challenge</span>
+          </div>
+        </div>
+
+        {/* Additional Copyright Notice */}
+        <div className="mt-4 text-center">
+          <p className="text-white text-xs">
+            This project and all associated intellectual property are owned by
+            Team Pulse Planet.
+            <br />
+            Developed as part of the NASA Space Apps Challenge 2025.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

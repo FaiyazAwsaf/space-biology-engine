@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Search, Sparkles, Filter } from 'lucide-react';
-import { FilterPanel, FilterState } from './FilterPanel';
-import { FilterChips } from './FilterChips';
+import { useState } from "react";
+import { Search, Sparkles, Filter } from "lucide-react";
+import { FilterPanel, FilterState } from "./FilterPanel";
+import { FilterChips } from "./FilterChips";
 
 interface SearchBoxProps {
   value: string;
@@ -11,26 +11,46 @@ interface SearchBoxProps {
   showFilters?: boolean;
 }
 
-export function SearchBox({ value, onChange, onSearch, placeholder, showFilters = false }: SearchBoxProps) {
+export function SearchBox({
+  value,
+  onChange,
+  onSearch,
+  placeholder,
+  showFilters = false,
+}: SearchBoxProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const [isSynthesizing, setIsSynthesizing] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     organism: [],
     exposureType: [],
     tissueSystem: [],
     duration: [],
     studyType: [],
-    missionContext: []
+    missionContext: [],
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(value, filters);
+    if (!value.trim() || isSynthesizing) return;
+
+    setIsSynthesizing(true);
+
+    // Add a smooth transition delay before executing the search
+    setTimeout(() => {
+      onSearch(value, filters);
+      setIsSynthesizing(false);
+    }, 800); // 800ms transition
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      onSearch(value, filters);
+    if (e.key === "Enter" && value.trim() && !isSynthesizing) {
+      setIsSynthesizing(true);
+
+      setTimeout(() => {
+        onSearch(value, filters);
+        setIsSynthesizing(false);
+      }, 800);
     }
   };
 
@@ -40,9 +60,9 @@ export function SearchBox({ value, onChange, onSearch, placeholder, showFilters 
   };
 
   const handleRemoveFilter = (category: keyof FilterState, value: string) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [category]: prev[category].filter(v => v !== value)
+      [category]: prev[category].filter((v) => v !== value),
     }));
   };
 
@@ -53,12 +73,15 @@ export function SearchBox({ value, onChange, onSearch, placeholder, showFilters 
       tissueSystem: [],
       duration: [],
       studyType: [],
-      missionContext: []
+      missionContext: [],
     });
   };
 
   const getActiveFilterCount = () => {
-    return Object.values(filters).reduce((count, categoryFilters) => count + categoryFilters.length, 0);
+    return Object.values(filters).reduce(
+      (count, categoryFilters) => count + categoryFilters.length,
+      0
+    );
   };
 
   return (
@@ -73,21 +96,26 @@ export function SearchBox({ value, onChange, onSearch, placeholder, showFilters 
       )}
 
       <form onSubmit={handleSubmit} className="relative">
-        <div className={`
+        <div
+          className={`
           relative bg-slate-900/40 backdrop-blur-md rounded-2xl border transition-all duration-300
-          ${isFocused 
-            ? 'shadow-xl shadow-emerald-500/25 border-emerald-400/50 bg-slate-900/60' 
-            : 'shadow-lg border-emerald-500/20'
+          ${
+            isFocused
+              ? "shadow-xl shadow-emerald-500/25 border-emerald-400/50 bg-slate-900/60"
+              : "shadow-lg border-emerald-500/20"
           }
-        `}>
+        `}
+        >
           {/* Bioluminescent glow effect */}
-          <div className={`
+          <div
+            className={`
             absolute inset-0 rounded-2xl transition-opacity duration-300
-            ${isFocused ? 'opacity-100' : 'opacity-0'}
-          `}>
+            ${isFocused ? "opacity-100" : "opacity-0"}
+          `}
+          >
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-cyan-500/5 to-emerald-500/10 rounded-2xl blur-sm"></div>
           </div>
-          
+
           <div className="relative flex items-center gap-4 p-4">
             <Search className="w-6 h-6 text-emerald-400 flex-shrink-0" />
             <input
@@ -97,7 +125,9 @@ export function SearchBox({ value, onChange, onSearch, placeholder, showFilters 
               onKeyPress={handleKeyPress}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              placeholder={placeholder || "Ask me anything about space biology..."}
+              placeholder={
+                placeholder || "Ask me anything about space biology..."
+              }
               className="flex-1 bg-transparent text-emerald-100 placeholder-emerald-300/70 outline-none text-lg"
             />
 
@@ -108,27 +138,33 @@ export function SearchBox({ value, onChange, onSearch, placeholder, showFilters 
                 onClick={() => setShowFilterPanel(true)}
                 className={`
                   relative px-4 py-3 rounded-xl flex items-center gap-2 transition-all duration-300 border
-                  ${getActiveFilterCount() > 0
-                    ? 'bg-cyan-500/20 border-cyan-400/50 text-cyan-100 hover:bg-cyan-500/30' 
-                    : 'bg-slate-800/40 border-slate-600/50 text-slate-300 hover:bg-slate-700/40'
+                  ${
+                    getActiveFilterCount() > 0
+                      ? "bg-cyan-500/20 border-cyan-400/50 text-cyan-100 hover:bg-cyan-500/30"
+                      : "bg-slate-800/40 border-slate-600/50 text-slate-300 hover:bg-slate-700/40"
                   }
                 `}
               >
                 <Filter className="w-4 h-4" />
                 <span className="text-sm">
-                  {getActiveFilterCount() > 0 ? `Filters (${getActiveFilterCount()})` : 'Filters'}
+                  {getActiveFilterCount() > 0
+                    ? `Filters (${getActiveFilterCount()})`
+                    : "Filters"}
                 </span>
               </button>
             )}
 
             <button
               type="submit"
-              disabled={!value.trim()}
+              disabled={!value.trim() || isSynthesizing}
               className={`
-                relative px-8 py-3 rounded-2xl flex items-center gap-3 transition-all duration-300 overflow-hidden group
-                ${value.trim() 
-                  ? 'bg-gradient-to-r from-emerald-700 via-cyan-600 to-emerald-700 hover:from-emerald-600 hover:via-cyan-500 hover:to-emerald-600 text-emerald-50 shadow-xl shadow-emerald-500/30 border border-emerald-400/40' 
-                  : 'bg-slate-800/40 text-emerald-400/40 cursor-not-allowed border border-emerald-500/10'
+                relative px-8 py-3 rounded-2xl flex items-center gap-3 transition-all duration-500 overflow-hidden group transform
+                ${
+                  value.trim() && !isSynthesizing
+                    ? "bg-gradient-to-r from-emerald-700 via-cyan-600 to-emerald-700 hover:from-emerald-600 hover:via-cyan-500 hover:to-emerald-600 text-emerald-50 shadow-xl shadow-emerald-500/30 border border-emerald-400/40 hover:scale-105"
+                    : isSynthesizing
+                    ? "bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 text-white shadow-2xl shadow-purple-500/40 border border-purple-400/60 scale-105"
+                    : "bg-slate-800/40 text-emerald-400/40 cursor-not-allowed border border-emerald-500/10"
                 }
               `}
             >
@@ -138,24 +174,66 @@ export function SearchBox({ value, onChange, onSearch, placeholder, showFilters 
                 <div className="absolute bottom-1 right-2 w-1.5 h-1.5 border border-current rotate-45"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-px bg-current"></div>
               </div>
-              
+
               {/* Pulsing bio-effect */}
-              {value.trim() && (
+              {value.trim() && !isSynthesizing && (
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 via-cyan-400/10 to-emerald-400/20 animate-pulse"></div>
               )}
-              
+
+              {/* Synthesizing effect */}
+              {isSynthesizing && (
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/20 to-cyan-400/30 animate-pulse"></div>
+              )}
+
+              {/* Flowing particles during synthesis */}
+              {isSynthesizing && (
+                <div className="absolute inset-0 overflow-hidden">
+                  <div
+                    className="absolute w-2 h-2 bg-white/60 rounded-full animate-ping"
+                    style={{ left: "10%", top: "30%", animationDelay: "0s" }}
+                  ></div>
+                  <div
+                    className="absolute w-1 h-1 bg-cyan-300/80 rounded-full animate-ping"
+                    style={{ left: "60%", top: "20%", animationDelay: "0.3s" }}
+                  ></div>
+                  <div
+                    className="absolute w-1.5 h-1.5 bg-purple-300/70 rounded-full animate-ping"
+                    style={{ left: "80%", top: "70%", animationDelay: "0.6s" }}
+                  ></div>
+                </div>
+              )}
+
               <div className="relative flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                <span className="tracking-wide">Synthesize</span>
+                {isSynthesizing ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span className="tracking-wide">Synthesizing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles
+                      className={`w-4 h-4 transition-transform duration-300 ${
+                        value.trim() ? "group-hover:rotate-12" : ""
+                      }`}
+                    />
+                    <span className="tracking-wide">Synthesize</span>
+                  </>
+                )}
               </div>
-              
+
               {/* DNA helix animation */}
               {value.trim() && (
                 <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
                   <div className="w-1 h-6 relative">
                     <div className="absolute inset-0 border-l border-current opacity-60 animate-pulse"></div>
-                    <div className="absolute top-0 left-0 w-2 h-1 border-t border-current rotate-12 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="absolute bottom-0 left-0 w-2 h-1 border-b border-current -rotate-12 animate-pulse" style={{ animationDelay: '1s' }}></div>
+                    <div
+                      className="absolute top-0 left-0 w-2 h-1 border-t border-current rotate-12 animate-pulse"
+                      style={{ animationDelay: "0.5s" }}
+                    ></div>
+                    <div
+                      className="absolute bottom-0 left-0 w-2 h-1 border-b border-current -rotate-12 animate-pulse"
+                      style={{ animationDelay: "1s" }}
+                    ></div>
                   </div>
                 </div>
               )}
