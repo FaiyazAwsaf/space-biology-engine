@@ -1,0 +1,101 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Machine Learning Models
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.safetensors
+*.bin
+*.model
+*.weights
+*.onnx
+models/*/
+checkpoint-*/
+checkpoints/
+
+# Training artifacts
+runs/
+logs/
+wandb/
+mlruns/
+tensorboard_logs/
+
+# Data files - Keep structure but ignore large files
+data/*.csv
+data/*.tsv
+data/*.json
+data/*.jsonl
+data/*.parquet
+data/*.arrow
+data/*.feather
+data/*.conll
+data/*.conllu
+data/raw/
+data/processed/
+data/train/
+data/test/
+data/val/
+
+# Vector databases
+chroma_db/
+*.chroma
+*.faiss
+*.index
+*.db
+*.sqlite3
+
+# Knowledge graphs - Keep small config files, ignore large data
+kg/*.gml
+kg/*.json
+kg/*.txt
+kg/*.csv
+kg/chroma_db/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# API keys and secrets
+config/secrets.json
+api_keys.json
+credentials.json
+
+# Large datasets (add specific patterns based on your data)
+*.zip
+*.tar.gz
+*.rar
+*.7z

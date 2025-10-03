@@ -1,0 +1,48 @@
+# Vector database files
+chroma_db/
+*.chroma
+*.db
+*.sqlite3
+*.index
+
+# Large knowledge graph files
+*.gml
+*.graphml
+*.net
+*.pajek
+*.dot
+
+# Processed knowledge graphs
+knowledge_graph.json
+processed_kg.json
+entities.json
+relations.json
+
+# Graph embeddings
+*.emb
+*.vec
+*.bin
+embeddings/
+
+# Cache files
+.cache/
+cached_*
+__pycache__/
+
+# Temporary files
+*.tmp
+*.temp
+temp_*
+
+# API response caches
+api_cache/
+response_cache/
+
+# Keep essential config and small reference files
+!*.py
+!small_reference_*.json
+!config.json
+
+# Backup files
+*.bak
+*.backup

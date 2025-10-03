@@ -1,0 +1,49 @@
+# Model weights and checkpoints
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.model
+*.weights
+*.ckpt
+
+# Model directories
+*/
+checkpoint-*/
+runs/
+best_model/
+final_model/
+
+# Training artifacts
+*.log
+training.log
+trainer_state.json
+optimizer.pt
+scheduler.pt
+rng_state.pth
+
+# Tokenizer files (large ones)
+vocab.txt
+tokenizer.json
+merges.txt
+
+# Keep essential config files
+!config.json
+!tokenizer_config.json
+!special_tokens_map.json
+!training_args.bin
+
+# Model outputs
+predictions/
+outputs/
+results/
+
+# Cached files
+.cache/
+cached_*
+
+# Temporary model files
+*.tmp
+*.temp

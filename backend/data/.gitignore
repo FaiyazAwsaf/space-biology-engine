@@ -1,0 +1,50 @@
+# Large training/evaluation datasets
+*.arrow
+*.pt/
+train.pt/
+eval.pt/
+test.pt/
+
+# Raw data files
+*.csv
+*.tsv
+*.json
+*.jsonl
+*.conll
+*.conllu
+*.txt
+
+# Processed data
+processed/
+cleaned/
+preprocessed/
+
+# Data splits
+train/
+test/
+val/
+validation/
+
+# Compressed data
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Binary data files
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.hdf5
+*.h5
+
+# Keep essential config files
+!labels.json
+!dataset_info.json
+!state.json
+
+# Temporary processing files
+*.tmp
+*.temp
+processing_cache/
