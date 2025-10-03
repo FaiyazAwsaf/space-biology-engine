@@ -169,13 +169,17 @@ export function Homepage({
 
           <div className="flex items-center gap-8 text-sm">
             <button className="text-emerald-300/70 hover:text-emerald-200 transition-colors tracking-wide">
-              About
+              <a href="">About</a>
             </button>
             <button className="text-emerald-300/70 hover:text-emerald-200 transition-colors tracking-wide">
-              Resources
+              <a href="https://www.spaceappschallenge.org/2025/challenges/build-a-space-biology-knowledge-engine/?tab=resources">
+                Resources
+              </a>
             </button>
             <button className="text-emerald-300/70 hover:text-emerald-200 transition-colors tracking-wide">
-              Team
+              <a href="https://www.spaceappschallenge.org/2025/find-a-team/pulse-planet/?tab=members">
+                Team
+              </a>
             </button>
           </div>
         </div>

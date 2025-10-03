@@ -12,6 +12,14 @@ if [ ! -f "hybrid_api.py" ]; then
     exit 1
 fi
 
+# Check if .env file exists
+if [ ! -f "../.env" ]; then
+    echo "⚠️  Warning: .env file not found in backend directory."
+    echo "💡 Please create backend/.env with your GEMINI_API_KEY"
+    echo "   You can copy from backend/.env.example"
+    echo ""
+fi
+
 # Check if Python dependencies are installed
 echo "🔍 Checking Python dependencies..."
 python3 -c "import fastapi, chromadb, networkx, sentence_transformers, transformers" 2>/dev/null

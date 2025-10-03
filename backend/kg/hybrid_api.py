@@ -3,6 +3,7 @@ import json
 import asyncio
 import networkx as nx
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from chromadb import PersistentClient
 from sentence_transformers import SentenceTransformer
@@ -11,17 +12,21 @@ import re
 import requests
 import time
 from contextlib import asynccontextmanager # 💡 Added for Lifespan Events
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # --- Configuration ---
 
-# **CRITICAL PATH:** Using the specific absolute path provided for your trained NER model
-MODEL_DIR = r"C:\Users\Sameer Roy\Desktop\nsac\models\models\ner_v1_15papers"
+# Use relative paths for Linux environment
+MODEL_DIR = '../models/models/ner_v1_15papers'
 KG_FILE = 'knowledge_graph.json'
 CHROMA_DB_DIR = 'chroma_db'
 COLLECTION_NAME = 'nasa_papers_collection'
 EMBEDDING_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
-GEMINI_MODEL = "gemini-2.5-flash-preview-05-20"
-API_KEY = "" # Leave as empty string. Canvas provides this at runtime.
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash-latest')
+API_KEY = os.getenv('GEMINI_API_KEY', '')
 
 # --- Global Components ---
 # app initialization is now at the end of the setup block
@@ -127,6 +132,20 @@ async def lifespan(app: FastAPI):
 
 # Initialize the FastAPI app, passing the new lifespan function
 app = FastAPI(title="Hybrid RAG Knowledge API", version="1.0.0", lifespan=lifespan)
+
+# Add CORS middleware to allow frontend requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",  # React dev server
+        "http://localhost:5173",  # Vite dev server
+        "https://space-biology-engine.vercel.app",  # Production domain
+        "https://*.vercel.app",   # Vercel preview deployments
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
 
 
 # --- Core Logic ---
@@ -295,3 +314,24 @@ async def ask_question(query: Query):
         citations=citations_data,
         knowledge_graph_data=kg_output
         )   
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint to verify API is running"""
+    return {
+        "status": "healthy",
+        "timestamp": time.time(),
+        "components": {
+            "ner_model": ner_pipeline is not None,
+            "rag_system": chroma_collection is not None,
+            "knowledge_graph": kg_graph is not None,
+            "gemini_api_key": bool(API_KEY),
+        }
+    }
+
+@app.get("/domains")
+async def get_available_domains():
+    """Get list of available research domains"""
+    return {
+        "domains": ["bone", "immune", "neuro", "plants", "microbiome", "methods"]
+    }
