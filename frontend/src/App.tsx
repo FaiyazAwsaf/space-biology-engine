@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Homepage } from "./components/Homepage";
 import { Dashboard } from "./components/Dashboard";
 import { FilterState } from "./components/FilterPanel";
+import spaceBiologyAPI, {
+  APIQuery,
+  APIResponse,
+} from "./services/spaceBiologyAPI";
 
 export interface Thread {
   id: string;
@@ -49,6 +53,192 @@ export default function App() {
 
   // Helper function to generate random delay between 5-7 seconds
   const getRandomDelay = () => Math.floor(Math.random() * 2000) + 5000; // 5000-7000ms
+
+  // Transform API citations to frontend Citation format
+  const transformCitations = (apiCitations: any[]): Citation[] => {
+    return apiCitations.map((citation, index) => ({
+      id: `citation-${index + 1}`,
+      title: citation.filename || `Research Paper ${index + 1}`,
+      authors: "Space Biology Research Team", // Backend doesn't provide authors yet
+      pmcId: citation.source,
+      snippet:
+        citation.text.slice(0, 200) + (citation.text.length > 200 ? "..." : ""),
+    }));
+  };
+
+  // Generate evidence card from API response
+  const generateEvidenceCardFromAPI = (
+    apiResponse: APIResponse
+  ): EvidenceCard => {
+    // Parse the answer text to extract structured information
+    const answer = apiResponse.answer;
+
+    return {
+      impacts: parseSection(answer, "impacts", [
+        "Bone density changes",
+        "Muscle atrophy effects",
+        "Immune system alterations",
+        "Neurological adaptations",
+      ]),
+      mechanisms: parseSection(answer, "mechanisms", [
+        "Mechanical unloading",
+        "Cellular signaling pathways",
+        "Gene expression changes",
+        "Protein synthesis alterations",
+      ]),
+      methods: parseSection(answer, "methods", [
+        "In-flight experiments",
+        "Ground-based analogs",
+        "Biomarker analysis",
+        "Imaging techniques",
+      ]),
+      countermeasures: parseSection(answer, "countermeasures", [
+        "Exercise protocols",
+        "Nutritional interventions",
+        "Pharmacological treatments",
+        "Artificial gravity",
+      ]),
+      caveats: apiResponse.confidence_warning
+        ? [
+            "Limited sample size",
+            apiResponse.source_type === "General Knowledge Model"
+              ? "General knowledge used - may lack specific research data"
+              : "Research database query",
+          ]
+        : [],
+      citations: transformCitations(apiResponse.citations || []),
+    };
+  };
+
+  // Helper function to parse sections from API response text
+  const parseSection = (
+    text: string,
+    sectionName: string,
+    fallback: string[]
+  ): string[] => {
+    // Try to extract bullet points or structured information
+    const lines = text.split("\n");
+    const relevantLines = lines
+      .filter(
+        (line) => line.includes("•") || line.includes("-") || line.includes("*")
+      )
+      .slice(0, 4); // Limit to 4 items
+
+    if (relevantLines.length > 0) {
+      return relevantLines.map((line) => line.replace(/[•\-*]\s*/, "").trim());
+    }
+
+    // Fallback to default items if no structured data found
+    return fallback.slice(0, 3);
+  };
+
+  // Handle API response for both initial and follow-up messages
+  const handleAPIResponse = async (
+    question: string,
+    filters: FilterState | undefined,
+    threadId: string,
+    isInitialResponse: boolean
+  ) => {
+    try {
+      // Prepare API query
+      const apiQuery: APIQuery = {
+        question,
+        filters: filters
+          ? {
+              organism: filters.organism,
+              exposureType: filters.exposureType,
+              tissueSystem: filters.tissueSystem,
+              duration: filters.duration,
+              studyType: filters.studyType,
+              missionContext: filters.missionContext,
+            }
+          : undefined,
+      };
+
+      // Add the natural delay for better UX
+      await new Promise((resolve) => setTimeout(resolve, getRandomDelay()));
+
+      // Call the API
+      const apiResponse = await spaceBiologyAPI.queryKnowledgeBase(apiQuery);
+
+      // Update thread with API response
+      setThreads((prev) =>
+        prev.map((thread) => {
+          if (thread.id === threadId) {
+            const aiMessage: Message = {
+              id: (Date.now() + 1).toString(),
+              type: "assistant",
+              content: apiResponse.answer,
+              timestamp: new Date(),
+              evidenceCard: generateEvidenceCardFromAPI(apiResponse),
+            };
+            return {
+              ...thread,
+              messages: [...thread.messages, aiMessage],
+              lastActivity: new Date(),
+            };
+          }
+          return thread;
+        })
+      );
+    } catch (error) {
+      console.error("API Error:", error);
+
+      // Fallback to error message with helpful information
+      setThreads((prev) =>
+        prev.map((thread) => {
+          if (thread.id === threadId) {
+            const errorMessage: Message = {
+              id: (Date.now() + 1).toString(),
+              type: "assistant",
+              content: `I apologize, but I'm having trouble connecting to the research database right now. This could be due to:
+
+• **Network connectivity issues**
+• **Backend service temporarily unavailable**  
+• **API configuration problems**
+
+**Error Details**: ${error instanceof Error ? error.message : "Unknown error"}
+
+**What you can try**:
+• Check if the backend server is running on port 8000
+• Verify your network connection
+• Try your question again in a moment
+
+For general space biology information, I can tell you that research focuses on understanding how spaceflight conditions affect living organisms, particularly bone density, muscle function, immune responses, and plant growth in microgravity environments.`,
+              timestamp: new Date(),
+              evidenceCard: {
+                impacts: ["Connection to research database failed"],
+                mechanisms: [
+                  "Unable to retrieve specific biological mechanisms",
+                ],
+                methods: ["Research methodologies temporarily unavailable"],
+                countermeasures: ["Specific interventions unavailable"],
+                caveats: [
+                  "API connection failed - using fallback response",
+                  "Please check backend server status",
+                  "Try again once connectivity is restored",
+                ],
+                citations: [],
+              },
+            };
+            return {
+              ...thread,
+              messages: [...thread.messages, errorMessage],
+              lastActivity: new Date(),
+            };
+          }
+          return thread;
+        })
+      );
+    } finally {
+      // Reset loading states
+      if (isInitialResponse) {
+        setIsLoadingInitialResponse(false);
+      } else {
+        setIsLoadingResponse(false);
+      }
+    }
+  };
 
   const handleStartConversation = (
     query: string,
@@ -141,28 +331,9 @@ export default function App() {
 
     // Show loading animation and generate AI response automatically when starting conversation
     setIsLoadingInitialResponse(true);
-    setTimeout(() => {
-      setThreads((prev) =>
-        prev.map((thread) => {
-          if (thread.id === newThread.id) {
-            const aiMessage: Message = {
-              id: (Date.now() + 1).toString(),
-              type: "assistant",
-              content: generateAIResponse(query, filters, newThread),
-              timestamp: new Date(),
-              evidenceCard: generateEvidenceCard(query, filters, newThread),
-            };
-            return {
-              ...thread,
-              messages: [...thread.messages, aiMessage],
-              lastActivity: new Date(),
-            };
-          }
-          return thread;
-        })
-      );
-      setIsLoadingInitialResponse(false);
-    }, getRandomDelay());
+
+    // Generate real AI response using the API
+    handleAPIResponse(query, filters, newThread.id, true);
   };
 
   const handleSendMessage = (
@@ -191,29 +362,8 @@ export default function App() {
       })
     );
 
-    // Simulate AI response with filter context
-    setTimeout(() => {
-      setThreads((prev) =>
-        prev.map((thread) => {
-          if (thread.id === threadId) {
-            const aiMessage: Message = {
-              id: (Date.now() + 1).toString(),
-              type: "assistant",
-              content: generateAIResponse(message, filters, thread),
-              timestamp: new Date(),
-              evidenceCard: generateEvidenceCard(message, filters, thread),
-            };
-            return {
-              ...thread,
-              messages: [...thread.messages, aiMessage],
-              lastActivity: new Date(),
-            };
-          }
-          return thread;
-        })
-      );
-      setIsLoadingResponse(false);
-    }, getRandomDelay());
+    // Generate real AI response using the API
+    handleAPIResponse(message, filters, threadId, false);
   };
 
   const generateAIResponse = (

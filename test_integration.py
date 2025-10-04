@@ -53,7 +53,7 @@ def test_query_endpoint():
         }
         
         response = requests.post(
-            "http://localhost:8000/query",
+            "http://localhost:8000/ask",
             json=test_query,
             timeout=30  # Longer timeout for AI processing
         )

@@ -42,7 +42,7 @@ class SpaceBiologyAPI {
    */
   async queryKnowledgeBase(query: APIQuery): Promise<APIResponse> {
     try {
-      const response = await fetch(`${this.baseURL}/query`, {
+      const response = await fetch(`${this.baseURL}/ask`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

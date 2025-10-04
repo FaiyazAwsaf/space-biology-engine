@@ -77,7 +77,7 @@ async def get_available_domains():
         "domains": ["bone", "immune", "neuro", "plants", "microbiome", "methods"]
     }
 
-@app.post("/query")
+@app.post("/ask")
 async def query_knowledge_base(request: QueryRequest):
     """Mock query endpoint for testing"""
     return ApiResponse(
